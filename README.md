@@ -60,7 +60,7 @@ Merge rules, all covered by [unit tests](test/sync.test.js):
 | Item removed from the repo | Removed locally, unless you edited it |
 | You own an item with the same id or name | Yours always wins |
 
-To use your own library, fork this repo (or create a new one with a `templates.json`) and set `REMOTE_URL` in [`sync.js`](sync.js). The `templates.json` in this repo is a small sample library.
+To use your own library, fork this repo (or create a new one with a `templates.json`) and set `REMOTE_URL` in [`sync.js`](sync.js). The `templates.json` in this repo is a small sample library for demos. The author keeps their own work templates local, in the extension's storage, and does not publish them.
 
 ## Project structure
 
