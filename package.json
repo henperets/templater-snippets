@@ -1,0 +1,56 @@
+{
+  "name": "templater",
+  "displayName": "Templater",
+  "description": "Build once, paste anywhere. Reusable text templates with fill-in [Fields], shared through a public Git repo.",
+  "version": "1.0.0",
+  "publisher": "henperets",
+  "license": "MIT",
+  "author": "Hen Perets",
+  "keywords": [
+    "templates",
+    "snippets",
+    "canned-responses",
+    "productivity",
+    "chrome-extension",
+    "vscode-extension"
+  ],
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:favoriteTemplates.open"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check sync.js && node --check popup.js && node --check extension.js && node --check content.js && node --check background.js"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "favoriteTemplates.open",
+        "title": "Open Template Manager",
+        "category": "Templater"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "favoriteTemplates.open",
+        "key": "ctrl+shift+alt+t",
+        "mac": "cmd+shift+alt+t"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "favoriteTemplates.open",
+          "group": "navigation",
+          "when": "editorFocus"
+        }
+      ]
+    }
+  }
+}

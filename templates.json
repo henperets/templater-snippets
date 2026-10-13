@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "sample_client_followup",
+      "name": "Follow-up after a support call",
+      "body": "Hi [Customer Name],\n\nThanks for taking the time to speak with me today about [Issue]. As discussed, the next step is [Next Step], and I'll get back to you by [Date].\n\nIf anything changes in the meantime, just reply to this message.\n\nBest regards,\n[Your Name]",
+      "type": "client",
+      "createdAt": 0
+    },
+    {
+      "name": "Ask for more details",
+      "id": "sample_client_more_info",
+      "body": "Hi [Customer Name],\n\nTo look into this properly I need a bit more information:\n\n1. What exactly happened, and what did you expect to happen?\n2. When did it start?\n3. A screenshot or the exact error message, if you have one.\n\nThanks,\n[Your Name]",
+      "type": "client",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_client_resolved",
+      "name": "Issue resolved",
+      "body": "Hi [Customer Name],\n\nGood news: the problem with [Issue] has been fixed. The cause was [Cause], and we [Fix].\n\nPlease let me know if you see anything unexpected.\n\nBest regards,\n[Your Name]",
+      "type": "client",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_prompt_code_review",
+      "name": "Code review prompt",
+      "body": "Review the following [Language] code for bugs, readability and performance. List problems in order of severity and suggest a concrete fix for each. Do not rewrite the whole file.\n\n[Paste Code]",
+      "type": "prompt",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_prompt_summarize",
+      "name": "Summarize for an audience",
+      "body": "Summarize the text below for [Audience] in [Length] sentences. Keep the key decisions and action items, and skip background they already know.\n\n[Paste Text]",
+      "type": "prompt",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_skill_bug_report",
+      "name": "Write a bug report",
+      "body": "When writing a bug report, always include:\n\n- Title: one line, starting with the area affected ([Area])\n- Steps to reproduce, numbered\n- Actual result vs. expected result\n- Environment: [Environment]\n- Evidence: logs, screenshots or a request ID\n\nKeep it factual. No guessing at root causes unless labelled as a hypothesis.",
+      "type": "skill",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_skill_commit_message",
+      "name": "Write a commit message",
+      "body": "Write commit messages in the imperative mood with a subject under 72 characters, e.g. \"Add retry to [Component]\". Use the body to explain why the change was needed, not what the diff already shows.",
+      "type": "skill",
+      "createdAt": 0
+    },
+    {
+      "id": "sample_guide_new_laptop",
+      "name": "Set up a new development machine",
+      "body": "1. Install Git and configure your name and email.\n2. Install [Runtime] and your editor.\n3. Clone [Repository] and run the setup script.\n4. Sign in to [Service] and copy the shared config.\n5. Run the tests to confirm everything works.",
+      "type": "guide",
+      "createdAt": 0
+    }
+  ]
+}

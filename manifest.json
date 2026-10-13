@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Templater",
+  "short_name": "Templater",
+  "version": "1.0.0",
+  "description": "Build once, paste anywhere. Create reusable message templates with dynamic [Field] placeholders.",
+  "permissions": ["storage", "scripting", "activeTab", "clipboardWrite"],
+  "host_permissions": ["https://raw.githubusercontent.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Templater — Build once, paste anywhere",
+    "default_icon": {
+      "16":  "icon16.png",
+      "32":  "icon32.png",
+      "48":  "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "web_accessible_resources": [{
+    "resources": ["popup.html", "popup.js", "sync.js"],
+    "matches": ["<all_urls>"]
+  }],
+  "icons": {
+    "16":  "icon16.png",
+    "32":  "icon32.png",
+    "48":  "icon48.png",
+    "128": "icon128.png"
+  }
+}
