@@ -527,6 +527,7 @@ html, body {
   text-align: center;
   line-height: 18px;
 }
+.btn-icon.copy:hover  { background: var(--primary-light); color: var(--accent); }
 /* Star button */
 .btn-icon.star.active { color: #fbbf24; }
 .btn-icon.star:hover  { background: rgba(251,191,36,0.12); color: #fbbf24; }
@@ -1466,6 +1467,12 @@ function buildCard(tpl, q, idx) {
     : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
   starBtn.addEventListener('click', () => toggleFavorite(tpl.id));
 
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'btn-icon copy';
+  copyBtn.title = 'Copy template text';
+  copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+  copyBtn.addEventListener('click', () => vscode.postMessage({ type: 'copy', text: tpl.body }));
+
   const editBtn = document.createElement('button');
   editBtn.className = 'btn-icon';
   editBtn.title = 'Edit template';
@@ -1478,7 +1485,7 @@ function buildCard(tpl, q, idx) {
   delBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>';
   delBtn.addEventListener('click', () => openDelete(tpl.id));
 
-  btns.append(starBtn, editBtn, delBtn);
+  btns.append(copyBtn, starBtn, editBtn, delBtn);
   head.append(name, btns);
 
   // Preview

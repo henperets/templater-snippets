@@ -8,6 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - Shared template library: templates sync from a public Git repo's `templates.json` on startup and via a **Sync** button (Chrome and VS Code).
 - Four color-coded categories: Replies, Prompts, Skills, Guides.
+- One-click copy button on each template card.
 - Unit tests for the sync/merge logic and a CI workflow.
 
 ### Changed
