@@ -12,6 +12,6 @@ Include what you found, how to reproduce it, and the impact you see. You can exp
 
 ## Security notes
 
-- The extension only makes one kind of network request: a `GET` for the library file at `REMOTE_URL` (`raw.githubusercontent.com`). It sends no user data.
+- The extension only makes one kind of network request: a `GET` for the library file at `REMOTE_URL` (`raw.githubusercontent.com`). It sends no user data. Setting `REMOTE_URL` to `''` in `src/sync.js` turns this off.
 - Synced templates are plain text. They are escaped before they are rendered, and never executed as code.
 - Templates are stored locally (`chrome.storage.local` or VS Code `globalState`). Do not put secrets in templates, especially if you publish the library repo.

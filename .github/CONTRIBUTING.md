@@ -22,9 +22,11 @@ npm run check
 
 ## Where to change things
 
-- The Chrome UI is `popup.html` and `popup.js`. The VS Code UI is embedded in `extension.js`. The two are currently separate copies, so UI changes usually need to be made in **both**.
-- Merge and sync rules live in `sync.js` as pure functions. Every change there needs a test in `test/sync.test.js`.
+- All source code is in `src/`. The Chrome UI is `src/popup.html` and `src/popup.js`. The VS Code UI is embedded in `src/extension.js`. The two are currently separate copies, so UI changes usually need to be made in **both**.
+- Merge and sync rules live in `src/sync.js` as pure functions. Every change there needs a test in `test/sync.test.js`.
 - The category list is the `TYPES` array in `popup.js` and `extension.js`. Colors are the `[data-type]` rules in the CSS.
+- The VS Code webview script is a JavaScript template string, so every backslash must be doubled (write `\\[` to get `\[`). `test/webview.test.js` parses the delivered script and fails if one is missed.
+- The starter library is `templates.json` at the root. Keep it small: new installs sync it on first run.
 
 ## Pull requests
 

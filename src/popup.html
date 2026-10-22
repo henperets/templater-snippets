@@ -718,16 +718,16 @@ mark {
 </div>
 
 
-<!-- ═══ DELETE MODAL ═══ -->
+<!-- ═══ DELETE CONFIRMATION ═══ -->
 <div class="overlay" id="delOverlay">
-  <div class="modal modal-sm">
+  <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="delTitle" aria-describedby="delText">
     <div class="modal-head">
-      <h2>Delete Template</h2>
-      <button class="modal-x" id="delClose">✕</button>
+      <h2 id="delTitle">Delete template?</h2>
+      <button class="modal-x" id="delClose" aria-label="Close">✕</button>
     </div>
     <div class="modal-body" style="gap:10px">
-      <p style="font-size:13px">Are you sure you want to delete <strong id="delName" style="color:var(--accent)"></strong>?</p>
-      <p style="font-size:12px;color:var(--fg-muted)">This action cannot be undone.</p>
+      <p id="delText" style="font-size:13px"><strong id="delName" style="color:var(--accent)"></strong> will be permanently removed from your templates.</p>
+      <p id="delNote" style="font-size:12px;color:var(--fg-muted)"></p>
     </div>
     <div class="modal-foot">
       <button class="btn btn-secondary" id="delCancel">Cancel</button>

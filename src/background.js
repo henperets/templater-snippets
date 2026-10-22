@@ -11,7 +11,7 @@ chrome.action.onClicked.addListener(async (tab) => {
     // First time — inject and let content.js open automatically
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      files: ['content.js']
+      files: ['src/content.js']
     });
   }
 });

@@ -13,7 +13,7 @@ let panel;
  */
 function activate(context) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('favoriteTemplates.open', () => openPanel(context))
+    vscode.commands.registerCommand('templater.open', () => openPanel(context))
   );
 }
 
@@ -25,7 +25,7 @@ function openPanel(context) {
   }
 
   panel = vscode.window.createWebviewPanel(
-    'favoriteTemplates',
+    'templater',
     'Templater',
     vscode.ViewColumn.One,
     { enableScripts: true, retainContextWhenHidden: true }
@@ -187,7 +187,7 @@ let syncing = false;
 async function syncShared(context, manual) {
   const toast = (text, kind) => panel && panel.webview.postMessage({ type: 'toast', text, kind });
   if (syncing) return;
-  if (!Sync.isConfigured()) { if (manual) toast('Set REMOTE_URL in sync.js first', 'info'); return; }
+  if (!Sync.isConfigured()) { if (manual) toast('Sync is off. Set REMOTE_URL in src/sync.js to turn it on.', 'info'); return; }
   syncing = true;
   try {
     const remote = Sync.parseLibrary(await fetchJson(Sync.REMOTE_URL));
@@ -1240,16 +1240,16 @@ mark {
   </div>
 </div>
 
-<!-- ═══ DELETE MODAL ═══ -->
+<!-- ═══ DELETE CONFIRMATION ═══ -->
 <div class="overlay" id="delOverlay">
-  <div class="modal modal-sm">
+  <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="delTitle" aria-describedby="delText">
     <div class="modal-head">
-      <h2>Delete Template</h2>
-      <button class="modal-x" id="delClose">✕</button>
+      <h2 id="delTitle">Delete template?</h2>
+      <button class="modal-x" id="delClose" aria-label="Close">✕</button>
     </div>
     <div class="modal-body" style="gap:10px">
-      <p style="font-size:13px">Are you sure you want to delete <strong id="delName" style="color:var(--accent)"></strong>?</p>
-      <p style="font-size:12px;color:var(--fg-muted)">This action cannot be undone.</p>
+      <p id="delText" style="font-size:13px"><strong id="delName" style="color:var(--accent)"></strong> will be permanently removed from your templates.</p>
+      <p id="delNote" style="font-size:12px;color:var(--fg-muted)"></p>
     </div>
     <div class="modal-foot">
       <button class="btn btn-secondary" id="delCancel">Cancel</button>
@@ -1540,7 +1540,7 @@ function buildCard(tpl, q, idx) {
 // Named fields are deduplicated by trimmed name.
 // Empty/whitespace-only brackets each become a separate numbered field.
 function extractFields(body) {
-  const re = /\[([^\]]*)\]/g;
+  const re = /\\[([^\\]]*)\\]/g;
   const fields = [];
   const seenNamed = new Set();
   let unnamedCount = 0;
@@ -1561,7 +1561,7 @@ function extractFields(body) {
 // Build the final text with placeholders replaced by user values.
 // Named fields: all occurrences replaced. Unnamed fields: replaced in order.
 function applyFields(body, values) {
-  const re = /\[([^\]]*)\]/g;
+  const re = /\\[([^\\]]*)\\]/g;
   let result = '';
   let last = 0;
   let unnamedIdx = 0;
@@ -1582,7 +1582,7 @@ function applyFields(body, values) {
 
 // Build HTML preview — filled fields shown in green, unfilled as styled placeholders.
 function buildPreview(body, values) {
-  const re = /\[([^\]]*)\]/g;
+  const re = /\\[([^\\]]*)\\]/g;
   let html = '';
   let last = 0;
   let unnamedIdx = 0;
@@ -1689,12 +1689,17 @@ function saveTemplate() {
   showToast(editingId ? 'Template updated!' : 'Template created!', 'success');
 }
 
-// ─── DELETE MODAL ───
+// ─── DELETE CONFIRMATION ───
 function openDelete(id) {
   deletingId = id;
   const tpl = templates.find((t) => t.id === id);
-  $('delName').textContent = tpl ? tpl.name : '';
+  $('delName').textContent = tpl ? '“' + tpl.name + '”' : 'This template';
+  $('delNote').textContent = (tpl && tpl.shared)
+    ? 'It came from the shared library and won’t be added back on the next sync. This can’t be undone.'
+    : 'This can’t be undone.';
   $('delOverlay').classList.add('open');
+  // Safe default: Enter cancels unless the user deliberately moves to Delete
+  setTimeout(() => $('delCancel').focus(), 80);
 }
 
 function closeDelete() {
@@ -1824,7 +1829,7 @@ function esc(str) {
 
 function highlight(html, q) {
   if (!q) return html;
-  const safe = q.replace(/[.*+?^\${}()|[\]\\]/g, '\\\\$&');
+  const safe = q.replace(/[.*+?^\${}()|[\\]\\\\]/g, '\\\\$&');
   return html.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
 }
 
@@ -1870,4 +1875,5 @@ $('importFile').addEventListener('change', async (e) => {
 
 function deactivate() {}
 
-module.exports = { activate, deactivate };
+// getHtml is exported for the tests only
+module.exports = { activate, deactivate, getHtml };

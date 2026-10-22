@@ -32,7 +32,7 @@
     ].join(';');
 
     const iframe = document.createElement('iframe');
-    iframe.src = chrome.runtime.getURL('popup.html');
+    iframe.src = chrome.runtime.getURL('src/popup.html');
     iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;';
 
     panel.appendChild(iframe);

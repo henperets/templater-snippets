@@ -6,6 +6,15 @@
   "publisher": "henperets",
   "license": "MIT",
   "author": "Hen Perets",
+  "icon": "icons/icon128.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/henperets/templater-snippets.git"
+  },
+  "homepage": "https://github.com/henperets/templater-snippets#readme",
+  "bugs": {
+    "url": "https://github.com/henperets/templater-snippets/issues"
+  },
   "keywords": [
     "templates",
     "snippets",
@@ -21,24 +30,24 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:favoriteTemplates.open"
+    "onCommand:templater.open"
   ],
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "scripts": {
     "test": "node --test",
-    "check": "node --check sync.js && node --check popup.js && node --check extension.js && node --check content.js && node --check background.js"
+    "check": "node --check src/sync.js && node --check src/popup.js && node --check src/extension.js && node --check src/content.js && node --check src/background.js"
   },
   "contributes": {
     "commands": [
       {
-        "command": "favoriteTemplates.open",
+        "command": "templater.open",
         "title": "Open Template Manager",
         "category": "Templater"
       }
     ],
     "keybindings": [
       {
-        "command": "favoriteTemplates.open",
+        "command": "templater.open",
         "key": "ctrl+shift+alt+t",
         "mac": "cmd+shift+alt+t"
       }
@@ -46,7 +55,7 @@
     "menus": {
       "editor/context": [
         {
-          "command": "favoriteTemplates.open",
+          "command": "templater.open",
           "group": "navigation",
           "when": "editorFocus"
         }

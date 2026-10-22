@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const Sync = require('../sync');
+const Sync = require('../src/sync');
 
 const item = (id, name, extra) => Object.assign({ id, name, body: 'body of ' + name, type: 'client' }, extra);
 

@@ -12,7 +12,8 @@
 (function (root) {
   var TYPE_IDS = ['client', 'prompt', 'skill', 'guide'];
 
-  // Raw URL of the shared library: the templates.json of a public GitHub repo (fork and change to use your own).
+  // Raw URL of the shared library: the templates.json of a public GitHub repo.
+  // Point it at your own fork to share your own library, or set it to '' to turn sync off.
   var REMOTE_URL = 'https://raw.githubusercontent.com/henperets/templater-snippets/main/templates.json';
 
   function normType(t) { return TYPE_IDS.indexOf(t) >= 0 ? t : 'client'; }
@@ -80,7 +81,7 @@
 
   var api = { REMOTE_URL: REMOTE_URL, normType: normType, parseLibrary: parseLibrary,
               toLibraryJson: toLibraryJson, mergeRemote: mergeRemote,
-              isConfigured: function () { return REMOTE_URL.indexOf('OWNER/REPO') < 0; } };
+              isConfigured: function () { return !!REMOTE_URL && REMOTE_URL.indexOf('OWNER/REPO') < 0; } };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.TemplaterSync = api;

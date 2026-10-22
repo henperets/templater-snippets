@@ -259,7 +259,7 @@ var syncing = false;
 async function syncShared(manual) {
   if (syncing) return;
   if (!TemplaterSync.isConfigured()) {
-    if (manual) showToast('Set REMOTE_URL in sync.js first', 'info');
+    if (manual) showToast('Sync is off. Set REMOTE_URL in src/sync.js to turn it on.', 'info');
     return;
   }
   syncing = true;
@@ -633,13 +633,18 @@ async function saveTemplate() {
   showToast(wasNew ? 'Template created!' : 'Template updated!', 'success');
 }
 
-// ─── DELETE MODAL ────────────────────────────────────────────────────────────
+// ─── DELETE CONFIRMATION ─────────────────────────────────────────────────────
 
 function openDelete(id) {
   deletingId = id;
   var tpl = templates.find(function(t) { return t.id === id; });
-  $('delName').textContent = tpl ? tpl.name : '';
+  $('delName').textContent = tpl ? '“' + tpl.name + '”' : 'This template';
+  $('delNote').textContent = (tpl && tpl.shared)
+    ? 'It came from the shared library and won’t be added back on the next sync. This can’t be undone.'
+    : 'This can’t be undone.';
   $('delOverlay').classList.add('open');
+  // Safe default: Enter cancels unless the user deliberately moves to Delete
+  setTimeout(function() { $('delCancel').focus(); }, 80);
 }
 
 function closeDelete() {

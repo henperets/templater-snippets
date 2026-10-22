@@ -1,6 +1,6 @@
 # Architecture
 
-Templater is two small front-ends over one data model, plus one shared module.
+Templater is two small front-ends over one data model, plus one shared module. All source files are in `src/`.
 
 ```text
 ┌──────────────── Chrome ────────────────┐   ┌────────── VS Code ──────────┐
@@ -46,5 +46,5 @@ A template is a plain object:
 ## Known trade-offs
 
 - The Chrome and VS Code UIs are separate copies of similar code. A shared UI module would remove the duplication (see the roadmap).
-- `REMOTE_URL` is a constant in `sync.js` and not yet a user setting.
+- `REMOTE_URL` is a constant in `src/sync.js` and not yet a user setting. Setting it to `''` turns sync off.
 - GitHub caches raw files for a few minutes, so updates are not instant.

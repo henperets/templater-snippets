@@ -5,7 +5,11 @@
 [![CI](https://github.com/henperets/templater-snippets/actions/workflows/ci.yml/badge.svg)](https://github.com/henperets/templater-snippets/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-<!-- Add a screenshot or short GIF here: docs/screenshot.png -->
+<p align="center">
+  <img src="docs/images/templates.png" alt="Template list with categories, favorites and search" width="360">
+  &nbsp;
+  <img src="docs/images/fill-fields.png" alt="Filling in [Fields] with a live preview" width="360">
+</p>
 
 ## Why
 
@@ -27,9 +31,9 @@ Anyone who answers the same questions all day (support, sales, ops, engineering)
 
 ### Chrome (or any Chromium browser)
 
-1. Clone or download this repo.
+1. [Download the ZIP](https://github.com/henperets/templater-snippets/archive/refs/heads/main.zip) and unzip it, or clone the repo.
 2. Open `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and select the project folder.
+3. Click **Load unpacked** and select the project folder (the one that contains `manifest.json`).
 4. Click the Templater icon on any web page to open the panel.
 
 ### VS Code
@@ -37,6 +41,17 @@ Anyone who answers the same questions all day (support, sales, ops, engineering)
 1. Clone this repo and open it in VS Code.
 2. Press `F5` (uses the *Run Extension* launch config) to start an Extension Development Host.
 3. Run **Templater: Open Template Manager** from the Command Palette, or press `Ctrl+Shift+Alt+T`.
+
+## Getting started
+
+A fresh install comes with two starter templates, so you can see how it works right away:
+
+| Template | Shows |
+|---|---|
+| **Example: reply with fields** | A reply with `[Fields]` that you fill in before pasting |
+| **Example: plain text** | A template without fields, ready to copy as is |
+
+Click **Use Template** to try them, then delete them or edit them into your own. Click **New Template** to write your first one. Deleting a template always asks for confirmation first.
 
 ## How sync works
 
@@ -60,20 +75,28 @@ Merge rules, all covered by [unit tests](test/sync.test.js):
 | Item removed from the repo | Removed locally, unless you edited it |
 | You own an item with the same id or name | Yours always wins |
 
-To use your own library, fork this repo (or create a new one with a `templates.json`) and set `REMOTE_URL` in [`sync.js`](sync.js). The `templates.json` in this repo is a small sample library for demos. The author keeps their own work templates local, in the extension's storage, and does not publish them.
+### Use your own library, or none
+
+`REMOTE_URL` in [`src/sync.js`](src/sync.js) decides where templates sync from:
+
+- **Share your own templates:** fork this repo, replace `templates.json` with your own (use **Export** in the extension), and point `REMOTE_URL` at your fork's raw file.
+- **Keep everything local:** set `REMOTE_URL` to `''`. Sync turns off and the extension makes no network requests.
 
 ## Project structure
 
 ```text
-manifest.json     Chrome extension manifest (MV3)
-background.js     Service worker: toggles the panel on icon click
-content.js        Injects the floating panel (an iframe) into the page
-popup.html/.js    The Chrome UI (HTML, CSS and logic)
-extension.js      VS Code extension: host logic and the webview UI
-sync.js           Shared-library merge logic, used by both extensions (pure functions)
-templates.json    Sample shared library
-test/             Unit tests (node:test)
-docs/             Architecture notes
+manifest.json        Chrome extension manifest (MV3)
+package.json         VS Code extension manifest and npm scripts
+templates.json       Starter library that new installs sync from
+src/
+  background.js      Chrome service worker: toggles the panel on icon click
+  content.js         Injects the floating panel (an iframe) into the page
+  popup.html/.js     The Chrome UI (HTML, CSS and logic)
+  extension.js       VS Code extension: host logic and the webview UI
+  sync.js            Shared-library merge logic, used by both extensions (pure functions)
+icons/               Extension icons (PNG sizes and the SVG source)
+test/                Unit tests (node:test)
+docs/                Architecture notes, privacy policy, screenshots
 ```
 
 More detail in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
@@ -83,7 +106,7 @@ More detail in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 Requires Node.js 18+ (no install step, there are no dependencies).
 
 ```bash
-npm test        # unit tests for the sync/merge logic
+npm test        # unit tests: sync/merge logic and the VS Code webview script
 npm run check   # syntax-check every source file
 ```
 
@@ -97,7 +120,11 @@ npm run check   # syntax-check every source file
 
 ## Contributing
 
-Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Issues and pull requests are welcome. See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+
+## Privacy and security
+
+Templater collects no data. See the [privacy policy](docs/PRIVACY.md) and [security policy](.github/SECURITY.md).
 
 ## License
 
